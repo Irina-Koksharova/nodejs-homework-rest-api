@@ -19,7 +19,7 @@ const addContact = async (body) => {
   const contactToAdd = {
     id,
     ...body,
-    ...(body.areСolleagues ? {} : { areСolleagues: true })
+    ...(body.areСolleagues ? {} : { areСolleagues: false })
   }
   db.get('contacts').push(contactToAdd).write()
   return contactToAdd
