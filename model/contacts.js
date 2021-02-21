@@ -6,7 +6,7 @@ const listContacts = async () => {
 }
 
 const getContactById = async (contactId) => {
-  return db.get('contacts').find({ contactId }).value()
+  return db.get('contacts').find({ id: contactId }).value()
 }
 
 const removeContact = async (contactId) => {
