@@ -61,18 +61,11 @@
       "phone": "(748) 206-2688"
     },
     {
-      "id": "9cb765b4-0801-4ab4-8bef-97657fbe8f37",
-      "name": "Nastya Koksharova",
-      "email": "qwe@qwe.qwe",
+      "id": "def09aed-00a9-41a2-b96c-f85247079693",
+      "name": "Ira",
+      "email": "Donec.elementum@scelerisquescelerisquedui.net",
       "phone": "(748) 206-2688",
       "areСolleagues": false
-    },
-    {
-      "id": "0683e098-0244-47e8-a229-7394ae4b6c9e",
-      "name": "Ira Koksharova",
-      "email": "qwe@qwe.qwe",
-      "phone": "(748) 206-2688",
-      "areСolleagues": true
     }
   ]
 }

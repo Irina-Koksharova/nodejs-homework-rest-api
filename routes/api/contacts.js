@@ -32,7 +32,7 @@ router.get('/:contactId', async (req, res, next) => {
       return res.status(404).json({
         status: 'error',
         code: 404,
-        data: 'Not found'
+        message: 'Not found'
       })
     }
   } catch (error) {
@@ -42,14 +42,22 @@ router.get('/:contactId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const contact = await Contacts.addContact(req.body)
-    return res.status(201).json({
-      status: 'success',
-      code: 201,
-      data: {
-        contact,
-      }
-    })
+    const result = await Contacts.addContact(req.body)
+    if (result?.id) {
+      return res.status(201).json({
+        status: 'success',
+        code: 201,
+        data: {
+          result,
+        }
+      })
+    } else {
+      return res.status(400).json({
+        status: 'error',
+        code: 400,
+        message: result
+      })
+    }
   } catch (error) {
     next(error)
   }
