@@ -15,23 +15,18 @@ const removeContact = async (contactId) => {
 }
 
 const addContact = async (body) => {
-  if (body?.name && body?.email && body?.phone) {
-    const contactsList = await listContacts()
-    const isExist = contactsList.find(({ name }) => name === body.name)
-    if (!isExist) {
-      const contactToAdd = {
-        id: uuid(),
-        ...body,
-        ...(body.areСolleagues ? {} : { areСolleagues: false })
-      }
-      db.get('contacts').push(contactToAdd).write()
-      return contactToAdd
-    } else {
-      const message = `${body.name} is already in your contacts list`
-      return message
+  const contactsList = await listContacts()
+  const isExist = contactsList.find(({ name }) => name === body.name)
+  if (!isExist) {
+    const contactToAdd = {
+      id: uuid(),
+      ...body,
+      ...(body.areСolleagues ? {} : { areСolleagues: false })
     }
+    db.get('contacts').push(contactToAdd).write()
+    return contactToAdd
   } else {
-    const message = 'Missing required name field'
+    const message = `${body.name} is already in your contacts list`
     return message
   }
 }
