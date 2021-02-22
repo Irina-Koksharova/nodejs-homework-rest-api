@@ -10,7 +10,7 @@ const getContactById = async (contactId) => {
 }
 
 const removeContact = async (contactId) => {
-  const [contactToRemove] = db.get('contacts').find({ contactId }).wtite()
+  const [contactToRemove] = db.get('contacts').remove({ id: contactId }).write()
   return contactToRemove
 }
 
@@ -27,7 +27,7 @@ const addContact = async (body) => {
       db.get('contacts').push(contactToAdd).write()
       return contactToAdd
     } else {
-      const message = `${body.name} is already exist`
+      const message = `${body.name} is already in your contacts list`
       return message
     }
   } else {
@@ -37,9 +37,9 @@ const addContact = async (body) => {
 }
 
 const updateContact = async (contactId, body) => {
-  const contactToUpdate = db.get('contacts').find({ contactId }).assign(body).value()
+  const contactToUpdate = db.get('contacts').find({ id: contactId }).assign(body).value()
   db.write()
-  return contactToUpdate.contactId ? contactToUpdate : null
+  return contactToUpdate.id ? contactToUpdate : null
 }
 
 module.exports = {
