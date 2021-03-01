@@ -4,18 +4,22 @@ const schemaPostContact = Joi.object({
   name: Joi.string().min(3).max(20).pattern(/^[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/).required(),
   email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
   phone: Joi.string().length(10).required(),
-  areСolleagues: Joi.boolean().optional()
+  subscription: Joi.string().optional(),
+  password: Joi.string().optional(),
+  token: Joi.string().allow('').optional(),
 })
 
 const schemaUpdateContact = Joi.object({
   name: Joi.string().min(3).max(20).pattern(/^[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/).optional(),
   email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).optional(),
   phone: Joi.string().length(10).optional(),
-  areСolleagues: Joi.boolean().optional()
+  subscription: Joi.string().optional(),
+  password: Joi.string().optional(),
+  token: Joi.string().allow('').optional(),
 })
 
 const schemaUpdateStatusContact = Joi.object({
-  areСolleagues: Joi.boolean().required()
+  subscription: Joi.string().required()
 })
 
 const validate = (schema, obj, next) => {
