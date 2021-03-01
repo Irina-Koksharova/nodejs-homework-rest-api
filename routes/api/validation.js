@@ -2,8 +2,8 @@ const Joi = require('joi')
 
 const schemaPostContact = Joi.object({
   name: Joi.string().min(3).max(20).pattern(/^[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/).required(),
-  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
-  phone: Joi.string().length(10).required(),
+  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'org'] } }).required(),
+  phone: Joi.string().required(),
   subscription: Joi.string().optional(),
   password: Joi.string().optional(),
   token: Joi.string().allow('').optional(),
@@ -11,8 +11,8 @@ const schemaPostContact = Joi.object({
 
 const schemaUpdateContact = Joi.object({
   name: Joi.string().min(3).max(20).pattern(/^[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/).optional(),
-  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).optional(),
-  phone: Joi.string().length(10).optional(),
+  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'org'] } }).optional(),
+  phone: Joi.string().optional(),
   subscription: Joi.string().optional(),
   password: Joi.string().optional(),
   token: Joi.string().allow('').optional(),

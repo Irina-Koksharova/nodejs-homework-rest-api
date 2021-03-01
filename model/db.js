@@ -14,16 +14,16 @@ mongoose.connection.on('connected', () => {
 })
 
 mongoose.connection.on('error', (error) => {
-  console.log(`Database connection error: ${error.message}`)
+  console.log(`Error connecting to database: ${error.message}`)
 })
 
 mongoose.connection.on('disconnected', () => {
-  console.log('Database was disconnected')
+  console.log('Connection for db was closed')
 })
 
 process.on('SIGINT', async () => {
   await mongoose.connection.close()
-  console.log('Connection for db was closed')
+  console.log('Database connection interrupted')
   process.exit(1)
 })
 
