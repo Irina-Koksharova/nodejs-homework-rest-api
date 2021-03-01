@@ -45,7 +45,7 @@ router.get('/:contactId', async (req, res, next) => {
 router.post('/', validation.postContact, async (req, res, next) => {
   try {
     const result = await Contacts.addContact(req.body)
-    if (result?.id) {
+    if (result?._id) {
       return res.status(201).json({
         status: 'success',
         code: 201,
