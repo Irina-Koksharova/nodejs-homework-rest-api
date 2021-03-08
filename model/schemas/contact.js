@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { Schema, model } = mongoose
+const { Schema, model, SchemaTypes } = mongoose
 
 const contactSchema = new Schema({
   name: {
@@ -15,17 +15,9 @@ const contactSchema = new Schema({
     type: String,
     required: [true, 'Set a phone number for your contact']
   },
-  subscription: {
-    type: String,
-    default: 'free'
-  },
-  password: {
-    type: String,
-    default: 'password'
-  },
-  token: {
-    type: String,
-    default: ''
+  owner: {
+    type: SchemaTypes.ObjectId,
+    ref: 'user',
   }
 },
 {

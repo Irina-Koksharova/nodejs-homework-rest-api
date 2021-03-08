@@ -8,7 +8,7 @@ const {
   update,
   updateParams,
   remove
-} = require('../../controllers/contacts')
+} = require('../../../controllers/contacts')
 
 router.get('/', getAll)
 router.post('/', validation.postContact, create)
