@@ -9,14 +9,15 @@ const {
   updateParams,
   remove
 } = require('../../../controllers/contacts')
+const quard = require('../../../helpers/guard')
 
-router.get('/', getAll)
-router.post('/', validation.postContact, create)
+router.get('/', quard, getAll)
+router.post('/', quard, validation.postContact, create)
 
-router.get('/:contactId', getById)
-router.delete('/:contactId', remove)
-router.put('/:contactId', validation.updateContact, update)
+router.get('/:contactId', quard, getById)
+router.delete('/:contactId', quard, remove)
+router.put('/:contactId', quard, validation.updateContact, update)
 
-router.patch('/:contactId/subscription', validation.updateStatusContact, updateParams)
+router.patch('/:contactId/subscription', quard, updateParams)
 
 module.exports = router

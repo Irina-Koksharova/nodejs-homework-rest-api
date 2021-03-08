@@ -13,10 +13,6 @@ const schemaUpdateContact = Joi.object({
   phone: Joi.string().optional(),
 })
 
-const schemaUpdateStatusContact = Joi.object({
-  subscription: Joi.string().required()
-})
-
 const validate = (schema, obj, next) => {
   const { error } = schema.validate(obj)
   const customMessage = () => {
@@ -41,8 +37,4 @@ module.exports.postContact = (req, res, next) => {
 
 module.exports.updateContact = (req, res, next) => {
   return validate(schemaUpdateContact, req.body, next)
-}
-
-module.exports.updateStatusContact = (req, res, next) => {
-  return validate(schemaUpdateStatusContact, req.body, next)
 }
