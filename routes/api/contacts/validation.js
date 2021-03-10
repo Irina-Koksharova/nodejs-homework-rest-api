@@ -1,5 +1,6 @@
 const Joi = require('joi')
 const { HttpCode } = require('../../../helpers/constants')
+const { Subscription } = require('../../../helpers/constants')
 
 const schemaPostContact = Joi.object({
   name: Joi.string().min(3).max(20).pattern(/^[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/).required(),
@@ -13,7 +14,7 @@ const schemaUpdateContact = Joi.object({
   phone: Joi.string().optional(),
 })
 
-const validate = (schema, obj, next) => {
+const validateContactParametres = (schema, obj, next) => {
   const { error } = schema.validate(obj)
   const customMessage = () => {
     const joiMessage = error.message
@@ -31,10 +32,33 @@ const validate = (schema, obj, next) => {
   next()
 }
 
+const schemaSortContacts = Joi.object({
+  limit: Joi.string().optional(),
+  page: Joi.string().optional(),
+  sortBy: Joi.string().valid('name', 'email', 'phone').optional(),
+  sortByDesc: Joi.string().valid('name', 'email', 'phone').optional(),
+  sub: Joi.string().valid(Subscription.FREE, Subscription.PRO, Subscription.PREMIUM).optional()
+})
+
+const validateSortParametres = (schema, obj, next) => {
+  const { error } = schema.validate(obj)
+  if (error) {
+    return next({
+      status: HttpCode.BAD_REQUEST,
+      message: 'Wrong fields of sort'
+    })
+  }
+  next()
+}
+
 module.exports.postContact = (req, res, next) => {
-  return validate(schemaPostContact, req.body, next)
+  return validateContactParametres(schemaPostContact, req.body, next)
 }
 
 module.exports.updateContact = (req, res, next) => {
-  return validate(schemaUpdateContact, req.body, next)
+  return validateContactParametres(schemaUpdateContact, req.body, next)
+}
+
+module.exports.sortContacts = (req, res, next) => {
+  return validateSortParametres(schemaSortContacts, req.query, next)
 }

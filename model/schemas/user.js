@@ -18,14 +18,14 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'Password is required'],
   },
+  token: {
+    type: String,
+    default: null,
+  },
   subscription: {
     type: String,
     enum: [Subscription.FREE, Subscription.PRO, Subscription.PREMIUM],
     default: Subscription.FREE
-  },
-  token: {
-    type: String,
-    default: null,
   }
 },
 {

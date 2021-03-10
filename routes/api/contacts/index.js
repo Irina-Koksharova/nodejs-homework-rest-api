@@ -11,7 +11,7 @@ const {
 } = require('../../../controllers/contacts')
 const quard = require('../../../helpers/guard')
 
-router.get('/', quard, getAll)
+router.get('/', quard, validation.sortContacts, getAll)
 router.post('/', quard, validation.postContact, create)
 
 router.get('/:contactId', quard, getById)
