@@ -1,8 +1,11 @@
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose
 const bcrypt = require('bcryptjs')
-const SALT_WORK_FACTOR = 8
+require('dotenv').config()
+const SALT_WORK_FACTOR = process.env.SALT_WORK_FACTOR
 const { Subscription } = require('../../helpers/constants')
+
+const { FREE, PRO, PREMIUM } = Subscription
 
 const userSchema = new Schema({
   email: {
@@ -24,8 +27,8 @@ const userSchema = new Schema({
   },
   subscription: {
     type: String,
-    enum: [Subscription.FREE, Subscription.PRO, Subscription.PREMIUM],
-    default: Subscription.FREE
+    enum: [FREE, PRO, PREMIUM],
+    default: FREE
   }
 },
 {

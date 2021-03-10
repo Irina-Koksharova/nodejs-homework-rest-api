@@ -1,14 +1,16 @@
 const Joi = require('joi')
-const { HttpCode } = require('../../../helpers/constants')
+const { ValidEmail, HttpCode } = require('../../../helpers/constants')
+
+const { COM, NET, ORG } = ValidEmail
 
 const schemaCreateUser = Joi.object({
-  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'org'] } }).required(),
+  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: [COM, NET, ORG] } }).required(),
   password: Joi.string().required(),
   subscription: Joi.string().optional(),
 })
 
 const schemaLoginUser = Joi.object({
-  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'org'] } }).required(),
+  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: [COM, NET, ORG] } }).required(),
   password: Joi.string().required(),
 })
 

@@ -4,6 +4,12 @@ const Subscription = {
   PREMIUM: 'premium',
 }
 
+const ValidEmail = {
+  COM: 'com',
+  NET: 'net',
+  ORG: 'org'
+}
+
 const HttpCode = {
   SUCCESS: '200',
   CREATED: '201',
@@ -16,4 +22,10 @@ const HttpCode = {
   INTERNAL_SERVER_ERROR: '500',
 }
 
-module.exports = { Subscription, HttpCode }
+const SortFields = {
+  NAME: 'name',
+  EMAIL: 'email',
+  PHONE: 'phone'
+}
+
+module.exports = { Subscription, ValidEmail, HttpCode, SortFields }

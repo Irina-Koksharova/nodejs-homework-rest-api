@@ -1,16 +1,20 @@
 const Joi = require('joi')
-const { HttpCode } = require('../../../helpers/constants')
-const { Subscription } = require('../../../helpers/constants')
+const { Subscription, ValidEmail, HttpCode, SortFields } = require('../../../helpers/constants')
+
+const { COM, NET, ORG } = ValidEmail
+const { NAME, EMAIL, PHONE } = SortFields
+const { FREE, PRO, PREMIUM } = Subscription
+const regEmail = /^[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/
 
 const schemaPostContact = Joi.object({
-  name: Joi.string().min(3).max(20).pattern(/^[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/).required(),
-  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'org'] } }).required(),
+  name: Joi.string().min(3).max(20).pattern(regEmail).required(),
+  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: [COM, NET, ORG] } }).required(),
   phone: Joi.string().required(),
 })
 
 const schemaUpdateContact = Joi.object({
-  name: Joi.string().min(3).max(20).pattern(/^[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/).optional(),
-  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'org'] } }).optional(),
+  name: Joi.string().min(3).max(20).pattern(regEmail).optional(),
+  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: [COM, NET, ORG] } }).optional(),
   phone: Joi.string().optional(),
 })
 
@@ -35,9 +39,9 @@ const validateContactParametres = (schema, obj, next) => {
 const schemaSortContacts = Joi.object({
   limit: Joi.string().optional(),
   page: Joi.string().optional(),
-  sortBy: Joi.string().valid('name', 'email', 'phone').optional(),
-  sortByDesc: Joi.string().valid('name', 'email', 'phone').optional(),
-  sub: Joi.string().valid(Subscription.FREE, Subscription.PRO, Subscription.PREMIUM).optional()
+  sortBy: Joi.string().valid(NAME, EMAIL, PHONE).optional(),
+  sortByDesc: Joi.string().valid(NAME, EMAIL, PHONE).optional(),
+  sub: Joi.string().valid(FREE, PRO, PREMIUM).optional()
 })
 
 const validateSortParametres = (schema, obj, next) => {

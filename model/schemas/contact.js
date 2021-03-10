@@ -3,6 +3,8 @@ const { Schema, model, SchemaTypes } = mongoose
 const mongoosePaginate = require('mongoose-paginate-v2')
 const { Subscription } = require('../../helpers/constants')
 
+const { FREE, PRO, PREMIUM } = Subscription
+
 const contactSchema = new Schema({
   name: {
     type: String,
@@ -19,8 +21,8 @@ const contactSchema = new Schema({
   },
   subscription: {
     type: String,
-    enum: [Subscription.FREE, Subscription.PRO, Subscription.PREMIUM],
-    default: Subscription.FREE
+    enum: [FREE, PRO, PREMIUM],
+    default: FREE
   },
   owner: {
     type: SchemaTypes.ObjectId,
