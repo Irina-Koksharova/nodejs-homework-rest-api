@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose
 const bcrypt = require('bcryptjs')
+const gravatar = require('gravatar')
 require('dotenv').config()
 const SALT_WORK_FACTOR = process.env.SALT_WORK_FACTOR
 const { Subscription } = require('../../helpers/constants')
@@ -21,6 +22,12 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'Password is required'],
   },
+  avatarURL: {
+    type: String,
+    default: function () {
+      return gravatar.url(this.email, { s: '250' }, true)
+    }
+  },
   token: {
     type: String,
     default: null,
@@ -40,7 +47,7 @@ userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     return next()
   }
-  const salt = await bcrypt.genSalt(SALT_WORK_FACTOR)
+  const salt = await bcrypt.genSalt(Number(SALT_WORK_FACTOR))
   this.password = await bcrypt.hash(this.password, salt, null)
   next()
 })

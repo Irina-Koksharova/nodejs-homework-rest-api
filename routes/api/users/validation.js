@@ -5,7 +5,7 @@ const { COM, NET, ORG } = ValidEmail
 
 const schemaCreateUser = Joi.object({
   email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: [COM, NET, ORG] } }).required(),
-  password: Joi.string().required(),
+  password: Joi.string().min(6).required(),
   subscription: Joi.string().optional(),
 })
 
@@ -38,4 +38,16 @@ module.exports.createUser = (req, res, next) => {
 
 module.exports.loginUser = (req, res, next) => {
   return validate(schemaLoginUser, req.body, next)
+}
+
+module.exports.avatarUser = (req, res, next) => {
+  if (!req.file) {
+    return res.status(HttpCode.BAD_REQUEST).json({
+      status: 'error',
+      code: HttpCode.BAD_REQUEST,
+      data: 'Bad request',
+      message: 'Missing required field avatar'
+    })
+  }
+  next()
 }
